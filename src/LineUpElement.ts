@@ -1,6 +1,6 @@
-const { customElement, property, query } = Polymer.decorators;
+const { customElement, property, query, observe } = Polymer.decorators;
 import * as css from 'raw-loader!lineupjs/build/LineUpJS.css';
-import { LineUp, asLineUp } from 'lineupjs';
+import { LocalDataProvider, LineUp, builder } from 'lineupjs';
 
 {
   // see https://github.com/Polymer/polymer/issues/2386
@@ -17,6 +17,7 @@ import { LineUp, asLineUp } from 'lineupjs';
 @customElement('lineup-element')
 export class LineUpElement extends Polymer.Element {
 
+  private provider: LocalDataProvider;
   private instance: LineUp;
 
   @property({ type: Array })
@@ -28,12 +29,23 @@ export class LineUpElement extends Polymer.Element {
   ready() {
     super.ready();
 
-    this.instance = asLineUp(this._main, this.data);
+    this.provider = builder(this.data).deriveColumns().buildData();
+    this.instance = new LineUp(this._main, this.provider);
   }
 
   update() {
     this.instance.update();
   }
+
+  @observe('data')
+  private onDataChanged() {
+    console.log(this.data);
+    if (this.provider) {
+      this.provider.setData(this.data);
+    }
+    //this.instance.data.setData(this.data);
+  }
+
 
   static get template() {
     const template = document.createElement('template');
