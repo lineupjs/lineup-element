@@ -25,7 +25,10 @@
   ],
   "scripts": {
     "lint": "tslint --project tsconfig.json -c tslint.json",
-    "build": "rollup -c",
+    "build:dev": "webpack -d --devtool source-map",
+    "watch": "webpack --watch -d --devtool source-map",
+    "build": "webpack -p",
+    "start": "npm run watch && polymer serve",
     "test": "npm run lint && npm run build",
     "prepublishOnly": "npm run build",
     "release:major": "npm version major && npm publish && git push --follow-tags",
@@ -34,17 +37,19 @@
     "release:pre": "npm version prerelease && npm publish --tag=next && git push --follow-tags"
   },
   "devDependencies": {
+    "awesome-typescript-loader": "^3.4.1",
     "bower": "^1.8.2",
+    "copy-webpack-plugin": "^4.4.1",
     "lineupjs": "next",
     "polymer-cli": "^1.6.0",
-    "rollup": "^0.55.3",
-    "rollup-plugin-node-resolve": "^3.0.2",
-    "rollup-plugin-string": "^2.0.2",
-    "rollup-plugin-typescript": "^0.8.1",
+    "raw-loader": "^1.0.0-beta.0",
     "tslint": "^5.9.1",
     "tslint-consistent-codestyle": "^1.11.0",
     "tslint-eslint-rules": "^4.1.1",
-    "typescript": "^2.7.1"
+    "typescript": "^2.7.1",
+    "uglify-es": "^3.3.9",
+    "uglifyjs-webpack-plugin": "^1.1.8",
+    "webpack": "^3.10.0"
   },
   "dependencies": {}
 }

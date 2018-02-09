@@ -12,3 +12,4 @@ bower_components
 *.log
 /.cache-loader
 /lineup-element.js
+.rpt2_cache

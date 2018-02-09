@@ -1,27 +1,48 @@
-const { customElement, property, observe } = Polymer.decorators;
+const { customElement, property, query } = Polymer.decorators;
+import * as css from 'raw-loader!lineupjs/build/LineUpJS.css';
+import { LineUp, asLineUp } from 'lineupjs';
 
 @customElement('lineup-element')
 export class LineUpElement extends Polymer.Element {
 
-  @property({ type: Number, notify: true })
-  personId: number = 44;
+  private instance: LineUp;
 
-  @property()
-  size: number = 60;
+  @property({ type: Array })
+  data: any[] = [];
 
-  @observe('size')
-  private _sizeChanged(size: number) {
-    console.log("size changed to " + size);
+  @query('main')
+  private _main: HTMLElement;
+
+  ready() {
+    super.ready();
+
+    this.instance = asLineUp(this._main, this.data);
+  }
+
+  update() {
+    this.instance.update();
   }
 
   static get template() {
-    return Polymer.html`
+    const template = document.createElement('template');
+    template.innerHTML = `
     <style>
-      :host {
-        display: block;
+      :host > main {
+        position: relative;
       }
+
+      .lu {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+      }
+
+      ${css.default}
     </style>
-    <div>Hello World</div>
+    <main></main>
     `;
+    return template;
   }
 }
