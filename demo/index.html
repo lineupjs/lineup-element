@@ -12,15 +12,7 @@
   <link rel="import" href="../bower_components/iron-demo-helpers/demo-pages-shared-styles.html">
   <link rel="import" href="../bower_components/iron-demo-helpers/demo-snippet.html">
   <link rel="import" href="../lineup-element.html">
-
-  <style>
-    lineup-element,
-    x-data {
-      width: 100%;
-      display: block;
-      height: 500px;
-    }
-  </style>
+  <link rel="import" href="../lineup-scripted.html">
 </head>
 
 <body>
@@ -28,11 +20,9 @@
     <h3>Basic lineup-element demo</h3>
     <demo-snippet>
       <template>
-        <script>
-          class XData extends Polymer.Element {
-            static get is() { return 'x-data'; }
-
-            static get properties() {
+        <lineup-scripted generator="gen">
+          <script>
+            function gen() {
               // generate some data
               const arr = [];
               const cats = ['c1', 'c2', 'c3'];
@@ -44,36 +34,13 @@
                   cat2: cats[Math.floor(Math.random() * 3)]
                 })
               }
-              return {
-                data: {
-                  type: Array,
-                  value: arr
-                }
-              };
+              return { arr };
             }
-
-            static get template() {
-              return Polymer.html`
-                <style>
-                  :host {
-                    position: relative;
-                  }
-
-                  lineup-element {
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                  }
-                </style>
-                <lineup-element data="{{data}}"></lineup-element>
-              `;
-            }
-          }
-
-          customElements.define('x-data', XData);
-        </script>
-
-        <x-data />
+          </script>
+          <template>
+            <lineup-element data="[[data.arr]]"></lineup-element>
+          </template>
+        </lineup-scripted>
       </template>
     </demo-snippet>
   </div>

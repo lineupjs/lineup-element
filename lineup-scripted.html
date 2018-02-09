@@ -1,0 +1,50 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link href="../bower_components/polymer/lib/mixins/template-stamp.html" rel="import" />
+
+<script>
+  (function () {
+    class LineUpScripted extends Polymer.TemplateStamp(Polymer.Element) {
+      static get is() { return 'lineup-scripted'; }
+
+      static get properties() {
+        return {
+          data: {
+            type: Object,
+            value: {}
+          },
+          generator: String
+        };
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+
+        // see https://stackoverflow.com/questions/44412325/how-to-inject-template-using-slot-with-data-binding-in-polymer2
+        const template = this.querySelector('template');
+        this.__instance = this._stampTemplate(template);
+        this.$.content.appendChild(this.__instance);
+
+        const script = this.querySelector('script');
+        const f = new Function(`
+        ${script.innerText}
+        return ${this.generator}();`);
+        this.data = f();
+      }
+
+      static get template() {
+        return Polymer.html`
+          <style>
+            :host {
+              position: relative;
+              display: block;
+              width: 100vw;
+            }
+          </style>
+          <div id="content"></div>
+        `;
+      }
+    }
+
+    customElements.define('lineup-scripted', LineUpScripted);
+  })()
+</script>

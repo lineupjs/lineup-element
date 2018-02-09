@@ -29,21 +29,29 @@ export class LineUpElement extends Polymer.Element {
   ready() {
     super.ready();
 
+    if (this.data != null && this.data.length > 0) {
+      this._init();
+    }
+  }
+
+  private _init() {
     this.provider = builder(this.data).deriveColumns().buildData();
     this.instance = new LineUp(this._main, this.provider);
   }
 
   update() {
-    this.instance.update();
+    if (this.instance) {
+      this.instance.update();
+    }
   }
 
   @observe('data')
-  private onDataChanged() {
-    console.log(this.data);
+  onDataChanged() {
     if (this.provider) {
       this.provider.setData(this.data);
+    } else if (this.data != null && this.data.length > 0) {
+      this._init();
     }
-    //this.instance.data.setData(this.data);
   }
 
 
@@ -57,6 +65,9 @@ export class LineUpElement extends Polymer.Element {
 
       :host {
         position: relative;
+        display: block;
+        width: var(--lineup-width, 100%);
+        height: var(--lineup-height, 500px);
       }
 
       .lu {
