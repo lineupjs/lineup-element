@@ -29,7 +29,7 @@ export class LineUpElement extends Polymer.Element {
   ready() {
     super.ready();
 
-    if (this.data != null && this.data.length > 0) {
+    if (!this.provider && this.data != null && this.data.length > 0) {
       this._init();
     }
   }

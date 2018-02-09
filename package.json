@@ -28,7 +28,7 @@
     "build:dev": "webpack -d --devtool source-map",
     "watch": "webpack --watch -d --devtool source-map",
     "build": "webpack -p",
-    "start": "npm run watch && polymer serve",
+    "start": "polymer serve",
     "test": "npm run lint && npm run build",
     "prepublishOnly": "npm run build",
     "release:major": "npm version major && npm publish && git push --follow-tags",

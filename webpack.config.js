@@ -23,7 +23,7 @@ const webpackloaders = [
 ];
 
 // use workspace registry file if available
-const isWorkspaceContext = fs.existsSync(resolve(__dirname, '..', 'phovea_registry.js'));
+const isWorkspaceContext = false; // fs.existsSync(resolve(__dirname, '..', 'phovea_registry.js'));
 
 /**
  * generate a webpack configuration

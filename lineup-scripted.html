@@ -19,29 +19,21 @@
       connectedCallback() {
         super.connectedCallback();
 
-        // see https://stackoverflow.com/questions/44412325/how-to-inject-template-using-slot-with-data-binding-in-polymer2
-        const template = this.querySelector('template');
-        this.__instance = this._stampTemplate(template);
-        this.$.content.appendChild(this.__instance);
-
         const script = this.querySelector('script');
         const f = new Function(`
         ${script.innerText}
         return ${this.generator}();`);
         this.data = f();
+
+        // see https://stackoverflow.com/questions/44412325/how-to-inject-template-using-slot-with-data-binding-in-polymer2
+        const template = this.querySelector('template');
+        this.__instance = this._stampTemplate(template);
+        // make a sibling
+        this.parentElement.appendChild(this.__instance);
       }
 
       static get template() {
-        return Polymer.html`
-          <style>
-            :host {
-              position: relative;
-              display: block;
-              width: 100vw;
-            }
-          </style>
-          <div id="content"></div>
-        `;
+        return Polymer.html`<style> :host { display: none; }</style>`;
       }
     }
 
