@@ -2,6 +2,18 @@ const { customElement, property, query } = Polymer.decorators;
 import * as css from 'raw-loader!lineupjs/build/LineUpJS.css';
 import { LineUp, asLineUp } from 'lineupjs';
 
+{
+  // see https://github.com/Polymer/polymer/issues/2386
+  // font-face are not supported in custom styles need to import globally
+  const style = String(css.default);
+  const fontFace = style.match(/@font-face[^}]+\}/);
+  if (fontFace) {
+    const s = document.createElement('style');
+    s.innerText = fontFace[0];
+    document.head.appendChild(s);
+  }
+}
+
 @customElement('lineup-element')
 export class LineUpElement extends Polymer.Element {
 
@@ -27,7 +39,11 @@ export class LineUpElement extends Polymer.Element {
     const template = document.createElement('template');
     template.innerHTML = `
     <style>
-      :host > main {
+
+      ${css.default}
+
+
+      :host {
         position: relative;
       }
 
@@ -38,8 +54,6 @@ export class LineUpElement extends Polymer.Element {
         top: 0;
         bottom: 0;
       }
-
-      ${css.default}
     </style>
     <main></main>
     `;
