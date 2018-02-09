@@ -11,3 +11,4 @@ bower_components
 *.css
 *.log
 /.cache-loader
+/lineup-element.js
