@@ -1,0 +1,44 @@
+{
+  "name": "lineup-element",
+  "description": "LineUp is an interactive technique designed to create, visualize and explore rankings of items based on a set of heterogeneous attributes.",
+  "homepage": "https://github.com/sgratzl/lineup-element",
+  "version": "1.0.0-beta.0",
+  "author": {
+    "name": "Samuel Gratzl",
+    "email": "samuel_gratzl@gmx.at"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sgratzl/lineup-element/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sgratzl/lineup-element.git"
+  },
+  "files": [
+    "lineup-element.html",
+    "bower.json",
+    "polymer.json",
+    "src/**/*.html",
+    "src/**/*.css"
+  ],
+  "scripts": {
+    "lint": "polymer lint",
+    "docs": "polymer analyze > anaylze.json",
+    "test": "polymer test",
+    "posttest": "npm run lint",
+    "build:dev": "webpack",
+    "build": "webpack --env prod",
+    "preversion": "npm test",
+    "prepublishOnly": "npm run build",
+    "release:major": "npm version major && npm publish && git push --follow-tags",
+    "release:minor": "npm version minor && npm publish && git push --follow-tags",
+    "release:patch": "npm version patch && npm publish && git push --follow-tags",
+    "release:pre": "npm version prerelease && npm publish --tag=next && git push --follow-tags"
+  },
+  "devDependencies": {
+    "lineupjs": "^3.0.1-beta.2"
+  },
+  "dependencies": {
+  }
+}
