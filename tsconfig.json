@@ -1,0 +1,23 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "target": "es6",
+    "module": "none",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": false,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "sourceMap": false,
+    "allowJs": true,
+    "outFile": "lineup-element.js",
+    "lib": [
+      "es2017",
+      "dom"
+    ]
+  },
+  "include": [
+    "*.ts",
+    "tsd.d.ts"
+  ]
+}

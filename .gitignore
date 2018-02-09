@@ -3,6 +3,7 @@
 /build/
 /dist/
 node_modules/
+bower_components
 /src/**/*.js
 /demo/**/*.js
 /tests/**/*.js
