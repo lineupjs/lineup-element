@@ -34,8 +34,9 @@ export class LineUpColumnDesc extends Polymer.Element implements IBuilderAdapter
   custom?: { [key: string]: any };
 }
 
-@customElement('lineup-categorical-desc')
 export class LineUpCategoricalColumnDesc extends LineUpColumnDesc implements IBuilderAdapterCategoricalColumnDescProps {
+  static readonly is = 'lineup-categorical-desc';
+
   build(data: any[]): ICategoricalColumnDesc {
     return builderAdapter.buildCategorical(this, data);
   }
@@ -50,9 +51,12 @@ export class LineUpCategoricalColumnDesc extends LineUpColumnDesc implements IBu
   asSet?: boolean | string;
 }
 
+window.customElements.define(LineUpCategoricalColumnDesc.is, LineUpCategoricalColumnDesc);
 
-@customElement('lineup-date-desc')
+
 export class LineUpDateColumnDesc extends LineUpColumnDesc implements IBuilderAdapterDateColumnDescProps {
+  static readonly is = 'lineup-date-desc';
+
   build(): IDateColumnDesc {
     return builderAdapter.buildDate(this);
   }
@@ -63,9 +67,12 @@ export class LineUpDateColumnDesc extends LineUpColumnDesc implements IBuilderAd
   dateParse?: string;
 }
 
+window.customElements.define(LineUpDateColumnDesc.is, LineUpDateColumnDesc);
 
-@customElement('lineup-hierarchy-desc')
+
 export class LineUpHierarchyColumnDesc extends LineUpColumnDesc implements IBuilderAdapterHierarchyColumnDescProps {
+  static readonly is = 'lineup-hierarchy-desc';
+
   build(): IHierarchyColumnDesc {
     return builderAdapter.buildHierarchy(this);
   }
@@ -76,8 +83,11 @@ export class LineUpHierarchyColumnDesc extends LineUpColumnDesc implements IBuil
   hierarchySeparator?: string;
 }
 
-@customElement('lineup-number-desc')
+window.customElements.define(LineUpHierarchyColumnDesc.is, LineUpHierarchyColumnDesc);
+
 export class LineUpNumberColumn extends LineUpColumnDesc implements IBuilderAdapterNumberColumnDescProps {
+  static readonly is = 'lineup-number-desc';
+
   build(data: any[]): INumberColumnDesc {
     return builderAdapter.buildNumber(this, data);
   }
@@ -94,8 +104,11 @@ export class LineUpNumberColumn extends LineUpColumnDesc implements IBuilderAdap
   sort?: EAdvancedSortMethod;
 }
 
-@customElement('lineup-string-desc')
+window.customElements.define(LineUpNumberColumn.is, LineUpNumberColumn);
+
 export class LineUpStringColumnDesc extends LineUpColumnDesc implements IBuilderAdapterStringColumnDescProps {
+  static readonly is = 'lineup-string-desc';
+
   build(): IStringColumnDesc {
     return builderAdapter.buildString(this);
   }
@@ -109,3 +122,5 @@ export class LineUpStringColumnDesc extends LineUpColumnDesc implements IBuilder
   @property({type: Array})
   patternTemplates?: string[];
 }
+
+window.customElements.define(LineUpStringColumnDesc.is, LineUpStringColumnDesc);

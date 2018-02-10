@@ -16,6 +16,8 @@ import {
   Ranking,
 } from 'lineupjs';
 import * as css from 'raw-loader!lineupjs/build/LineUpJS.css';
+import {LineUpColumnDesc} from './column';
+import LineUpRanking from './LineUpRanking';
 
 {
   // see https://github.com/Polymer/polymer/issues/2386
@@ -123,8 +125,8 @@ export class LineUpElement extends Polymer.Element implements IBuilderAdapterPro
   private readonly _adapter = new builderAdapter.Adapter({
     props: () => this,
     createInstance: (data: LocalDataProvider, options: Partial<ILineUpOptions>) => this.createInstance(this._main, data, options),
-    columnDescs: (_data: any[]) => [], //filterChildrenProps<LineUpColumnDesc, any>(this.props.children, LineUpColumnDesc).map((d) => d.type.build(d.props, data)),
-    rankingBuilders: () => [], //filterChildrenProps<LineUpRanking>(this.props.children, LineUpRanking).map((d) => LineUpRanking.merge(d.props))
+    columnDescs: (data: any[]) => Array.from(this.children).filter((d) => d instanceof LineUpColumnDesc).map((d) => (<LineUpColumnDesc>d).build(data)),
+    rankingBuilders: () => Array.from(this.children).filter((d) => d instanceof LineUpRanking).map((d) => (<LineUpRanking>d).merge())
   });
   private _changed: Partial<IBuilderAdapterProps>= {};
 

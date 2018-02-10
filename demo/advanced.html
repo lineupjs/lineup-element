@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+  <title>lineup-element advanced demo</title>
+
+  <script src="../bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+
+  <link rel="import" href="../bower_components/iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="../bower_components/iron-demo-helpers/demo-snippet.html">
+  <link rel="import" href="../lineup-element.html">
+  <link rel="import" href="../lineup-scripted.html">
+</head>
+
+<body>
+  <div class="vertical-section-container centered">
+    <h3>Basic lineup-element demo</h3>
+    <demo-snippet>
+      <template>
+        <lineup-scripted generator="gen">
+          <script>
+            function gen() {
+              // generate some data
+              const arr = [];
+              const cats = ['c1', 'c2', 'c3'];
+              for (let i = 0; i < 100; ++i) {
+                arr.push({
+                  a: Math.random() * 10,
+                  d: 'Row ' + i,
+                  cat: cats[Math.floor(Math.random() * 3)],
+                  cat2: cats[Math.floor(Math.random() * 3)]
+                })
+              }
+              return { arr, cats };
+            }
+          </script>
+          <template>
+            <lineup-element data="[[data.arr]]" side-panel side-panel-collapsed default-ranking="true">
+              <lineup-string-desc column="d" label="Label" width="100" ></lineup-string-desc>
+              <lineup-categorical-desc column="cat" categories="[[cats]]" color="green" ></lineup-categorical-desc>
+              <lineup-categorical-desc column="cat2" categories="[[cats]]" color="blue" ></lineup-categorical-desc>
+              <lineup-number-desc column="a" domain="[0, 10]" color="blue" ></lineup-number-desc>
+              <lineup-ranking group-by="cat" sort-by="a:desc">
+                <lineup-support-column type="*" ></lineup-support-column>
+                <lineup-column column="*" ></lineup-column>
+              </lineup-ranking>
+            </lineup-element>
+          </template>
+        </lineup-scripted>
+      </template>
+    </demo-snippet>
+  </div>
+</body>
+
+</html>

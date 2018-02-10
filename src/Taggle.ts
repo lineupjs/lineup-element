@@ -1,8 +1,7 @@
-const { customElement } = Polymer.decorators;
 import {LineUpElement} from './LineUpElement';
 
-
-@customElement('taggle-element')
-export class TaggleElement extends LineUpElement {
-
+export default class TaggleElement extends LineUpElement {
+  static readonly is = 'taggle-element';
 }
+
+window.customElements.define(TaggleElement.is, TaggleElement);
