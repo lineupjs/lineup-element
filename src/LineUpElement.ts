@@ -134,10 +134,6 @@ export class LineUpElement extends Polymer.Element implements IBuilderAdapterPro
     return new LineUp(node, data, options);
   }
 
-  componentDidMount() {
-    this._adapter.componentMouned();
-  }
-
   private _updateImpl() {
     const changed = Object.assign({}, this._changed);
     this._changed = {};
@@ -146,7 +142,7 @@ export class LineUpElement extends Polymer.Element implements IBuilderAdapterPro
 
   ready() {
     super.ready();
-    this._adapter.componentMouned();
+    this._adapter.componentDidMount();
   }
 
 
