@@ -1,5 +1,8 @@
 
 export * from './LineUpElement';
+export * from './column';
+export * from './LineUpRanking';
+export * from './Taggle';
 
 
 declare const __VERSION__: string;
