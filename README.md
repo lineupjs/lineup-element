@@ -1,5 +1,5 @@
-LineUp.js React Wrapper (LineUp.jsx)
-====================================
+LineUp.js Polymer Wrapper (LineUp-Element)
+===========================================
 
 [![License: MIT][mit-image]][mit-url] [![NPM version][npm-image]][npm-url]  [![CircleCI][ci-image]][ci-url] 
 
@@ -12,12 +12,11 @@ Usage
 **Installation**
 
 ```bash
-npm install --save lineupjsx
+bower install https://github.com/sgratzl/lineup-element
 ```
 
 ```html
-<link href="https://sgratzl.github.io/lineupjs_docs/masterx/LineUpJSx.css" rel="stylesheet">
-<script src="https://sgratzl.github.io/lineupjs_docs/masterx/LineUpJSx.min.js"></script>
+<link rel="import" href="bower_components/lineup-element/lineup-element.html">
 ```
 
 **Minimal Usage Example**
@@ -34,12 +33,14 @@ for (let i = 0; i < 100; ++i) {
     cat2: cats[Math.floor(Math.random() * 3)]
   })
 }
+conat data = { arr, cats };
 ```
 ```jsx
-<LineUp data={arr}/>
+<lineup-element data="[[data.arr]]"></lineup-element>
 ```
 
-[CodePen](https://codepen.io/sgratzl/pen/mXEpMP)
+TODO
+[CodePen]()
 
 ![Minimal Result](https://user-images.githubusercontent.com/4129778/34654173-32180ff8-f3f8-11e7-8469-229fa34a65dc.png)
 
@@ -48,21 +49,20 @@ for (let i = 0; i < 100; ++i) {
 
 ```jsx
 // arr from before
-<LineUp data={arr} defaultRanking>
-  <LineUpStringColumnDesc column="d" label="Label" width={100} />
-  <LineUpCategoricalColumnDesc column="cat" categories={cats} color="green" />
-  <LineUpCategoricalColumnDesc column="cat2" categories={cats} color="blue" />
-  <LineUpNumberColumnDesc column="a" domain={[0, 10]} color="blue" />
-
-  <LineUpRanking groupBy="cat" sortBy="a:desc">
-    <LineUpSupportColumn type="*" />
-    <LineUpColumn column="*" />
-    <LineUpImposeColumn label="a+cat" column="a" categeoricalColumn="cat2" />
-  </LineUpRanking>
-</LineUp>;
+<lineup-element data="[[data.arr]]" side-panel side-panel-collapsed default-ranking="true">
+  <lineup-string-desc column="d" label="Label" width="100" ></lineup-string-desc>
+  <lineup-categorical-desc column="cat" categories="[[cats]]" color="green" ></lineup-categorical-desc>
+  <lineup-categorical-desc column="cat2" categories="[[cats]]" color="blue" ></lineup-categorical-desc>
+  <lineup-number-desc column="a" domain="[0, 10]" color="blue" ></lineup-number-desc>
+  <lineup-ranking group-by="cat" sort-by="a:desc">
+    <lineup-support-column type="*" ></lineup-support-column>
+    <lineup-column column="*" ></lineup-column>
+  </lineup-ranking>
+</lineup-element>
 ```
 
-[CodePen](https://codepen.io/sgratzl/pen/yvJpWQ)
+TODO
+[CodePen]()
 
 ![Advanced Result](https://user-images.githubusercontent.com/4129778/34654174-3235f784-f3f8-11e7-9361-44f5fa068bb9.png)
 
@@ -82,8 +82,8 @@ Development Environment
 **Installation**
 
 ```bash
-git clone https://github.com/sgratzl/lineupjsx.git
-cd lineupjsx
+git clone https://github.com/sgratzl/lineup-element.git
+cd lineup-element
 npm install
 ```
 
@@ -103,6 +103,7 @@ npm run lint
 **Serve integrated webserver**
 
 ```bash
+npm run watch
 npm start
 ```
 
@@ -112,12 +113,12 @@ Authors
 
  * Samuel Gratzl (@sgratzl)
 
-[npm-image]: https://badge.fury.io/js/lineupjsx.svg
-[npm-url]: https://npmjs.org/package/lineupjsx
+[npm-image]: https://badge.fury.io/js/lineup-element.svg
+[npm-url]: https://npmjs.org/package/lineup-element
 [mit-image]: https://img.shields.io/badge/License-MIT-yellow.svg
 [mit-url]: https://opensource.org/licenses/MIT
-[ci-image]: https://circleci.com/gh/sgratzl/lineupjsx.svg?style=shield
-[ci-url]: https://circleci.com/gh/sgratzl/lineupjsx
+[ci-image]: https://circleci.com/gh/sgratzl/lineup-element.svg?style=shield
+[ci-url]: https://circleci.com/gh/sgratzl/lineup-element
 
 
  
