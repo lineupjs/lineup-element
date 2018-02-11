@@ -5,6 +5,8 @@
     "module": "es6",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": false,
+    "declaration": true,
+    "declarationDir": "./types",
     "moduleResolution": "node",
     "removeComments": true,
     "noImplicitAny": true,
