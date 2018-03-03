@@ -46,11 +46,11 @@ export default class LineUpRanking extends Polymer.Element implements IBuilderAd
     return builderAdapter.buildRanking(this, data);
   }
 
-  @property({ type: Object })
-  sortBy?: (string | { column: string, asc: 'asc' | 'desc' | boolean }) | ((string | { column: string, asc: 'asc' | 'desc' | boolean })[]);
-  @property({ type: Object })
+  @property({type: Object})
+  sortBy?: (string | {column: string, asc: 'asc' | 'desc' | boolean}) | ((string | {column: string, asc: 'asc' | 'desc' | boolean})[]);
+  @property({type: Object})
   groupBy?: string[] | string;
-  @property({ type: Array })
+  @property({type: Array})
   columns?: (string | IImposeColumnBuilder | INestedBuilder | IWeightedSumBuilder | IReduceBuilder | IScriptedBuilder)[];
 }
 
@@ -61,8 +61,8 @@ export class LineUpColumn extends ALineUpColumnBuilder {
     return builderAdapter.buildGeneric(this);
   }
 
-  @property({ type: String })
-  column: '*' | string;
+  @property({type: String})
+  column: '*' | string = '*';
 }
 
 
@@ -72,12 +72,12 @@ export class LineUpImposeColumn extends ALineUpColumnBuilder implements IBuilder
     return builderAdapter.buildImposeRanking(this);
   }
 
-  @property({ type: String })
+  @property({type: String})
   label?: string;
-  @property({ type: String })
-  column: string;
-  @property({ type: String })
-  categoricalColumn: string;
+  @property({type: String})
+  column: string = '';
+  @property({type: String})
+  categoricalColumn: string = '';
 }
 
 @customElement('lineup-nested-column')
@@ -87,7 +87,7 @@ export class LineUpNestedColumn extends ALineUpColumnBuilder implements IBuilder
     return builderAdapter.buildNestedRanking(this, children.map((d) => d.build()));
   }
 
-  @property({ type: String })
+  @property({type: String})
   label?: string;
 }
 
@@ -97,10 +97,10 @@ export class LineUpWeightedColumn extends ALineUpColumnBuilder {
     return this.column;
   }
 
-  @property({ type: String })
-  column: string;
-  @property({ type: String })
-  weight: number;
+  @property({type: String})
+  column: string = '';
+  @property({type: String})
+  weight: number = 1;
 }
 
 @customElement('lineup-weighted-sum-column')
@@ -113,7 +113,7 @@ export class LineUpWeightedSumColumn extends ALineUpColumnBuilder implements IBu
     })));
   }
 
-  @property({ type: String })
+  @property({type: String})
   label?: string;
 }
 
@@ -124,9 +124,9 @@ export class LineUpReduceColumn extends ALineUpColumnBuilder implements IBuilder
     return builderAdapter.buildReduceRanking(this, children.map((d) => d.build()));
   }
 
-  @property({ type: String })
-  type: 'min' | 'max' | 'mean' | 'median';
-  @property({ type: String })
+  @property({type: String})
+  type: 'min' | 'max' | 'mean' | 'median' = 'max';
+  @property({type: String})
   label?: string;
 }
 
@@ -138,9 +138,9 @@ export class LineUpScriptedColumn extends ALineUpColumnBuilder implements IBuild
     return builderAdapter.buildScriptRanking(this, children.map((d) => d.build()));
   }
 
-  @property({ type: String })
-  code: string;
-  @property({ type: String })
+  @property({type: String})
+  code: string = '';
+  @property({type: String})
   label?: string;
 }
 
@@ -150,8 +150,8 @@ export class LineUpSupportColumn extends ALineUpColumnBuilder implements IBuilde
     return builderAdapter.buildSupportRanking(this);
   }
 
-  @property({ type: String })
-  type: 'rank' | 'selection' | 'group' | 'aggregate' | '*';
+  @property({type: String})
+  type: 'rank' | 'selection' | 'group' | 'aggregate' | '*' = '*';
 }
 
 @customElement('lineup-all-columns')

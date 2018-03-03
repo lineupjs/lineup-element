@@ -1,4 +1,4 @@
-const { customElement, property, query, observe } = Polymer.decorators;
+const {customElement, property, query, observe} = Polymer.decorators;
 import {
   builderAdapter,
   Column,
@@ -49,12 +49,12 @@ function debounce(callback: () => void, timeToDelay = 100) {
 @customElement('lineup-element')
 export class LineUpElement extends Polymer.Element implements IBuilderAdapterProps {
 
-  @property({ type: Array })
+  @property({type: Array})
   data: any[] = [];
 
-  @property({ type: Array })
+  @property({type: Array})
   selection: number[] | null = null;
-  @property({ type: Number })
+  @property({type: Number})
   highlight: number | null = null;
 
   onSelectionChanged(selection: number[]) {
@@ -64,75 +64,75 @@ export class LineUpElement extends Polymer.Element implements IBuilderAdapterPro
     this.dispatchEvent(new CustomEvent('highlightChanged', {detail: {highlight}}));
   }
 
-  @property({ type: Boolean })
+  @property({type: Boolean})
   singleSelection?: boolean;
-  @property({ type: Boolean })
+  @property({type: Boolean})
   filterGlobally?: boolean;
-  @property({ type: Boolean })
+  @property({type: Boolean})
   noCriteriaLimits?: boolean;
-  @property({ type: Number })
+  @property({type: Number})
   maxGroupColumns?: number;
-  @property({ type: Number })
+  @property({type: Number})
   maxNestedSortingCriteria?: number;
-  columnTypes?: { [type: string]: typeof Column };
+  columnTypes?: {[type: string]: typeof Column};
 
-  @property({ type: Object })
+  @property({type: Object})
   deriveColumns?: boolean | string[];
-  @property({ type: Boolean })
+  @property({type: Boolean})
   deriveColors?: boolean;
 
-  @property({ type: Object })
+  @property({type: Object})
   restore?: any;
-  @property({ type: Object })
+  @property({type: Object})
   defaultRanking?: boolean | 'noSupportTypes';
 
-  @property({ type: Boolean })
+  @property({type: Boolean})
   animated?: boolean;
-  @property({ type: Boolean })
+  @property({type: Boolean})
   sidePanel?: boolean;
-  @property({ type: Boolean })
+  @property({type: Boolean})
   sidePanelCollapsed?: boolean;
-  @property({ type: String })
+  @property({type: String})
   defaultSlopeGraphMode?: 'item' | 'band';
-  @property({ type: Boolean })
+  @property({type: Boolean})
   summaryHeader?: boolean;
-  @property({ type: Boolean })
+  @property({type: Boolean})
   expandLineOnHover?: boolean;
-  @property({ type: Boolean })
+  @property({type: Boolean})
   overviewMode?: boolean;
 
-  @property({ type: Object })
-  renderer?: { [id: string]: ICellRendererFactory };
-  @property({ type: Object })
-  toolbar?: { [id: string]: IToolbarAction };
+  @property({type: Object})
+  renderer?: {[id: string]: ICellRendererFactory};
+  @property({type: Object})
+  toolbar?: {[id: string]: IToolbarAction};
 
-  @property({ type: Number })
+  @property({type: Number})
   rowHeight?: number;
-  @property({ type: Number })
+  @property({type: Number})
   rowPadding?: number;
 
-  @property({ type: Number })
+  @property({type: Number})
   groupHeight?: number;
-  @property({ type: Number })
+  @property({type: Number})
   groupPadding?: number;
 
-  @property({ type: Object })
+  @property({type: Object})
   dynamicHeight?: (data: (IGroupItem | IGroupData)[], ranking: Ranking) => (IDynamicHeight | null);
 
   @query('main')
-  private _main: HTMLElement;
+  private _main: HTMLElement | null = null;
 
   private readonly _adapter = new builderAdapter.Adapter({
     props: () => this,
-    createInstance: (data: LocalDataProvider, options: Partial<ILineUpOptions>) => this.createInstance(this._main, data, options),
+    createInstance: (data: LocalDataProvider, options: Partial<ILineUpOptions>) => this.createInstance(this._main!, data, options),
     columnDescs: (data: any[]) => Array.from(this.children).filter((d) => d instanceof LineUpColumnDesc).map((d) => (<LineUpColumnDesc>d).build(data)),
     rankingBuilders: () => Array.from(this.children).filter((d) => d instanceof LineUpRanking).map((d) => (<LineUpRanking>d).merge())
   });
-  private _changed: Partial<IBuilderAdapterProps>= {};
+  private _changed: Partial<IBuilderAdapterProps> = {};
 
   private _triggerChanged = debounce(() => this._updateImpl(), 50);
 
-  protected createInstance(node: HTMLElement, data: LocalDataProvider, options: Partial<ITaggleOptions>): LineUp|Taggle {
+  protected createInstance(node: HTMLElement, data: LocalDataProvider, options: Partial<ITaggleOptions>): LineUp | Taggle {
     return new LineUp(node, data, options);
   }
 

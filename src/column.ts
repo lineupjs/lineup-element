@@ -25,13 +25,13 @@ export class LineUpColumnDesc extends Polymer.Element implements IBuilderAdapter
   }
 
   @property({type: String})
-  column: string;
+  column: string = '';
   @property({type: Boolean})
   asMap?: boolean;
   @property({type: Object})
   asArray?: string[] | number | boolean;
   @property({type: Object})
-  custom?: { [key: string]: any };
+  custom?: {[key: string]: any};
 }
 
 export class LineUpCategoricalColumnDesc extends LineUpColumnDesc implements IBuilderAdapterCategoricalColumnDescProps {
@@ -78,7 +78,11 @@ export class LineUpHierarchyColumnDesc extends LineUpColumnDesc implements IBuil
   }
 
   @property({type: Object})
-  hierarchy: IPartialCategoryNode;
+  hierarchy: IPartialCategoryNode = {
+    name: '',
+    children: []
+  };
+
   @property({type: String})
   hierarchySeparator?: string;
 }
