@@ -2,7 +2,8 @@ const resolve = require('path').resolve;
 const pkg = require('./package.json');
 const webpack = require('webpack');
 const fs = require('fs');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const now = new Date();
@@ -16,20 +17,35 @@ const banner = '/*! ' + (pkg.title || pkg.name) + ' - v' + pkg.version + ' - ' +
   '* Copyright (c) ' + year + ' ' + pkg.author.name + ';' +
   ' Licensed ' + pkg.license + '*/\n';
 
-
-//list of loaders and their mappings
-const webpackloaders = [
-  { test: /\.tsx?$/, loader: 'awesome-typescript-loader' },
-];
-
-// use workspace registry file if available
-const isWorkspaceContext = false; // fs.existsSync(resolve(__dirname, '..', 'phovea_registry.js'));
-
 /**
  * generate a webpack configuration
  */
-function generateWebpack() {
-  const base = {
+module.exports = (env) => {
+
+  const tsLoader = [{
+      loader: 'cache-loader'
+    },
+    {
+      loader: 'thread-loader',
+      options: {
+        // there should be 1 cpu for the fork-ts-checker-webpack-plugin
+        workers: require('os').cpus().length - 1,
+      },
+    },
+    {
+      loader: 'ts-loader',
+      options: {
+        configFile: env === 'dev' ? 'tsconfig_dev.json' : 'tsconfig.json',
+        happyPackMode: true // IMPORTANT! use happyPackMode mode to speed-up  compilation and reduce errors reported to webpack
+      }
+    }
+  ];
+
+  if (process.env.CI) {
+    tsLoader.splice(0, 2); // just the loader no optimization
+  }
+
+  return {
     entry: {
       'lineup-element': './src/index.ts'
     },
@@ -45,45 +61,78 @@ function generateWebpack() {
     resolve: {
       // Add `.ts` and `.tsx` as a resolvable extension.
       extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js'],
-      symlinks: false,
-      //fallback to the directory above if they are siblings just in the workspace context
-      modules: isWorkspaceContext ? [
-        resolve(__dirname, '../'),
-        'node_modules'
-      ] : ['node_modules']
+      symlinks: false
     },
     plugins: [
+      new webpack.BannerPlugin({
+        banner: banner,
+        raw: true
+      }),
       //define magic constants that are replaced
       new webpack.DefinePlugin({
         __VERSION__: JSON.stringify(pkg.version),
         __LICENSE__: JSON.stringify(pkg.license),
         __BUILD_ID__: JSON.stringify(buildId)
       }),
-      new webpack.BannerPlugin({
-        banner: banner,
-        raw: true
+      new ExtractTextPlugin({
+        filename: `[name].css`
       }),
+      new ForkTsCheckerWebpackPlugin({
+        checkSyntacticErrors: true
+      }),
+
       new CopyWebpackPlugin([{
-        from: './node_modules/lineupjs/build/*.+(svg|eot|ttf)', flatten: true
-      }
-      ])
-      //rest depends on type
+        from: './node_modules/lineupjs/build/*.+(svg|eot|ttf)',
+        flatten: true
+      }])
     ],
     externals: {},
     module: {
-      loaders: webpackloaders.slice()
+      rules: [{
+          test: /\.s?css$/,
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: ['css-loader', 'sass-loader']
+          })
+        },
+        {
+          test: /\.tsx?$/,
+          use: tsLoader
+        },
+        {
+          test: /\.(png|jpg)$/,
+          loader: 'url-loader',
+          options: {
+            limit: 20000 //inline <= 10kb
+          }
+        },
+        {
+          test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+          loader: 'url-loader',
+          options: {
+            limit: 20000, //inline <= 20kb
+            mimetype: 'application/font-woff'
+          }
+        },
+        {
+          test: /\.svg(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+          loader: 'url-loader',
+          options: {
+            limit: 10000, //inline <= 10kb
+            mimetype: 'image/svg+xml'
+          }
+        },
+        {
+          test: /\.(ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+          loader: 'file-loader'
+        }
+      ]
     },
     watchOptions: {
-      aggregateTimeout: 500,
       ignored: /node_modules/
     },
     devServer: {
       contentBase: 'demo'
-    },
-    devtool: 'source-map'
+    }
   };
-
-  return base;
-}
-
-module.exports = generateWebpack();
+};

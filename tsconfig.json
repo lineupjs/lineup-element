@@ -1,13 +1,20 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "target": "es5",
     "module": "es6",
+    "target": "es5",
+    "importHelpers": true,
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "jsx": "react",
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": false,
+    "lib": [
+      "dom",
+      "es2015",
+      "es2016.array.include",
+      "es2017.object"
+    ],
     "declaration": true,
     "declarationDir": "./types",
-    "moduleResolution": "node",
     "removeComments": true,
     "noImplicitAny": true,
     "forceConsistentCasingInFileNames": true,
@@ -18,18 +25,15 @@
     "noUnusedParameters": true,
     "strictNullChecks": true,
     "stripInternal": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
     "skipLibCheck": true,
-    "sourceMap": true,
-    "esModuleInterop": true,
-    "lib": [
-      "dom",
-      "es2015",
-      "es2016.array.include",
-      "es2017.object"
-    ]
+    "esModuleInterop": true
   },
+  "compileOnSave": false,
   "include": [
     "src/**/*.ts",
+    "src/**/*.tsx",
     "tsd.d.ts"
   ]
 }
