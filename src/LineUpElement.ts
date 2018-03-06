@@ -100,6 +100,8 @@ export class LineUpElement extends Polymer.Element implements IBuilderAdapterPro
   expandLineOnHover?: boolean;
   @property({type: Boolean})
   overviewMode?: boolean;
+  @property({type: Number})
+  labelRotation?: number;
 
   @property({type: Object})
   renderer?: {[id: string]: ICellRendererFactory};
