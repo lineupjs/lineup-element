@@ -8,6 +8,7 @@ import {
   IBuilderAdapterHierarchyColumnDescProps,
   IBuilderAdapterNumberColumnDescProps,
   IBuilderAdapterStringColumnDescProps,
+  IBuilderAdapterActionsColumnDescProps,
   ICategoricalColumnDesc,
   ICategory,
   IColumnDesc,
@@ -15,7 +16,10 @@ import {
   IHierarchyColumnDesc,
   INumberColumnDesc,
   IPartialCategoryNode,
-  IStringColumnDesc
+  IStringColumnDesc,
+  IActionColumnDesc,
+  IAction,
+  IGroupAction
 } from 'lineupjs';
 
 @customElement('lineup-column-desc')
@@ -128,3 +132,19 @@ export class LineUpStringColumnDesc extends LineUpColumnDesc implements IBuilder
 }
 
 window.customElements.define(LineUpStringColumnDesc.is, LineUpStringColumnDesc);
+
+
+export class LineUpActionsColumnDesc extends LineUpColumnDesc implements IBuilderAdapterActionsColumnDescProps {
+  static readonly is = 'lineup-actions-desc';
+
+  build(): IStringColumnDesc {
+    return builderAdapter.buildActions(this);
+  }
+
+  @property({type: Array})
+  actions?: IAction[];
+  @property({type: Array})
+  groupActions?: IGroupAction[];
+}
+
+window.customElements.define(LineUpActionsColumnDesc.is, LineUpActionsColumnDesc);
