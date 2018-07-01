@@ -36,6 +36,75 @@ export class LineUpColumnDesc extends Polymer.Element implements IBuilderAdapter
   asArray?: string[] | number | boolean;
   @property({type: Object})
   custom?: {[key: string]: any};
+
+  /**
+   * label of the column
+   */
+  @property({type: String})
+  label?: string;
+  /**
+   * the column type
+   */
+  @property({type: String})
+  type?: string;
+
+  /**
+   * column description
+   */
+  @property({type: String})
+  description?: string;
+
+  /**
+   * color of this column
+   */
+  @property({type: String})
+  color?: string;
+
+  /**
+   * frozen column
+   * @default isSupportType
+   */
+  @property({type: Boolean})
+  frozen?: boolean;
+
+  /**
+   * whether the column can be removed or not
+   * @default false
+   */
+  @property({type: Boolean})
+  fixed?: boolean;
+
+  /**
+   * default renderer to use
+   */
+  @property({type: String})
+  renderer?: string;
+
+  /**
+   * default group renderer to use
+   */
+  @property({type: String})
+  groupRenderer?: string;
+
+  /**
+   * default summary renderer to use
+   */
+  @property({type: String})
+  summaryRenderer?: string;
+
+  /**
+   * initial width of the column
+   * @default 100 or 200 for strings
+   */
+  @property({type: Number})
+  width?: number;
+
+  /**
+   * is this column visible by default
+   * @default true
+   */
+  @property({type: Boolean})
+  visible = true;
 }
 
 export class LineUpCategoricalColumnDesc extends LineUpColumnDesc implements IBuilderAdapterCategoricalColumnDescProps {
