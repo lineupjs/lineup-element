@@ -24,8 +24,8 @@
     "src/**/*.html",
     "src/**/*.css"
   ],
-  "main": "./lineup-element.js",
-  "types": "./types",
+  "main": "./build/lineup-element.js",
+  "types": "./build/types",
   "scripts": {
     "clean": "rimraf build dist",
     "compile": "tsc",
