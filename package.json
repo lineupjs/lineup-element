@@ -46,7 +46,7 @@
     "release:pre": "npm version prerelease && npm publish --tag=next && git push --follow-tags"
   },
   "devDependencies": {
-    "@polymer/iron-demo-helpers": "*",
+    "@polymer/iron-demo-helpers": "^3.0.2",
     "cache-loader": "^1.2.5",
     "copy-webpack-plugin": "^4.6.0",
     "fork-ts-checker-webpack-plugin": "^0.4.15",
@@ -60,13 +60,13 @@
     "tslint": "^5.11.0",
     "tslint-consistent-codestyle": "^1.14.1",
     "tslint-eslint-rules": "^5.4.0",
-    "typescript": "~3.0.1",
+    "typescript": "~3.1.6",
     "webpack": "^4.25.1",
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {
-    "@polymer/polymer": "^3.0.0",
-    "@webcomponents/webcomponentsjs": "^1",
-    "@polymer/decorators": "*"
+    "@polymer/polymer": "^3.1.0",
+    "@webcomponents/webcomponentsjs": "^2.1.3",
+    "@polymer/decorators": "^3.0.0"
   }
 }
