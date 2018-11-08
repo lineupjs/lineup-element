@@ -2,11 +2,12 @@
   "name": "lineup-element",
   "description": "LineUp is an interactive technique designed to create, visualize and explore rankings of items based on a set of heterogeneous attributes.",
   "homepage": "https://github.com/datavisyn/lineup-element",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.6",
   "flat": true,
   "author": {
     "name": "Samuel Gratzl",
-    "email": "samuel_gratzl@gmx.at"
+    "email": "sam@sgratzl.com",
+    "url": "https://www.sgratzl.com"
   },
   "license": "MIT",
   "bugs": {
@@ -44,23 +45,23 @@
     "release:pre": "npm version prerelease && npm publish --tag=next && git push --follow-tags"
   },
   "devDependencies": {
-    "bower": "^1.8.2",
-    "cache-loader": "^1.2.2",
-    "copy-webpack-plugin": "^4.5.0",
-    "fork-ts-checker-webpack-plugin": "^0.4.0",
-    "lineupjs": "^3.0.1-beta.13",
+    "bower": "^1.8.4",
+    "cache-loader": "^1.2.5",
+    "copy-webpack-plugin": "^4.6.0",
+    "fork-ts-checker-webpack-plugin": "^0.4.15",
+    "lineupjs": "~3.1.7",
     "mkdirp": "^0.5.1",
-    "polymer-cli": "^1.6.0",
+    "polymer-cli": "^1.8.1",
     "raw-loader": "^1.0.0-beta.0",
     "rimraf": "^2.6.2",
-    "thread-loader": "^1.1.5",
-    "ts-loader": "^4.0.0",
-    "tslint": "^5.9.1",
-    "tslint-consistent-codestyle": "^1.11.1",
-    "tslint-eslint-rules": "^5.1.0",
-    "typescript": "^2.7.2",
-    "webpack": "^4.0.1",
-    "webpack-cli": "^2.0.10"
+    "thread-loader": "^1.2.0",
+    "ts-loader": "^5.3.0",
+    "tslint": "^5.11.0",
+    "tslint-consistent-codestyle": "^1.14.1",
+    "tslint-eslint-rules": "^5.4.0",
+    "typescript": "~3.0.1",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2"
   },
   "dependencies": {}
 }
