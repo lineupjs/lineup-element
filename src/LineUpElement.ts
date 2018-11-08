@@ -1,4 +1,5 @@
-const {customElement, property, query, observe} = Polymer.decorators;
+import {PolymerElement} from '@polymer/polymer/polymer-element';
+import {customElement, property, query, observe} from '@polymer/decorators';
 import {
   builderAdapter,
   Column,
@@ -27,7 +28,7 @@ import LineUpRanking from './LineUpRanking';
   if (fontFace) {
     const s = document.createElement('style');
     s.innerText = fontFace[0];
-    document.head.appendChild(s);
+    document.head!.appendChild(s);
   }
 }
 
@@ -47,7 +48,7 @@ function debounce(callback: () => void, timeToDelay = 100) {
 
 
 @customElement('lineup-element')
-export class LineUpElement extends Polymer.Element implements IBuilderAdapterProps {
+export class LineUpElement extends PolymerElement implements IBuilderAdapterProps {
 
   @property({type: Array})
   data: any[] = [];

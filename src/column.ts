@@ -1,4 +1,5 @@
-const {customElement, property} = Polymer.decorators;
+import {PolymerElement} from '@polymer/polymer/polymer-element';
+import {customElement, property} from '@polymer/decorators';
 import {
   builderAdapter,
   EAdvancedSortMethod,
@@ -16,14 +17,14 @@ import {
   IHierarchyColumnDesc,
   INumberColumnDesc,
   IPartialCategoryNode,
-  IStringColumnDesc,
   IActionColumnDesc,
   IAction,
-  IGroupAction
+  IGroupAction,
+  ILinkColumnDesc
 } from 'lineupjs';
 
 @customElement('lineup-column-desc')
-export class LineUpColumnDesc extends Polymer.Element implements IBuilderAdapterColumnDescProps {
+export class LineUpColumnDesc extends PolymerElement implements IBuilderAdapterColumnDescProps {
   build(_data: any[]): IColumnDesc {
     return builderAdapter.build(this);
   }
@@ -186,7 +187,7 @@ window.customElements.define(LineUpNumberColumn.is, LineUpNumberColumn);
 export class LineUpStringColumnDesc extends LineUpColumnDesc implements IBuilderAdapterStringColumnDescProps {
   static readonly is = 'lineup-string-desc';
 
-  build(): IStringColumnDesc {
+  build(): ILinkColumnDesc {
     return builderAdapter.buildString(this);
   }
 
@@ -206,7 +207,7 @@ window.customElements.define(LineUpStringColumnDesc.is, LineUpStringColumnDesc);
 export class LineUpActionsColumnDesc extends LineUpColumnDesc implements IBuilderAdapterActionsColumnDescProps {
   static readonly is = 'lineup-actions-desc';
 
-  build(): IStringColumnDesc {
+  build(): IActionColumnDesc {
     return builderAdapter.buildActions(this);
   }
 

@@ -1,5 +1,5 @@
 import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
-import TemplateStamp from '@polymer/lib/mixins/template-stamp';
+import {TemplateStamp} from '@polymer/polymer/lib/mixins/template-stamp.js';
 
 
 class LineUpScripted extends TemplateStamp(PolymerElement) {

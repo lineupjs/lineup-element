@@ -2,7 +2,7 @@
   "name": "lineup-element",
   "description": "LineUp is an interactive technique designed to create, visualize and explore rankings of items based on a set of heterogeneous attributes.",
   "homepage": "https://github.com/datavisyn/lineup-element",
-  "version": "1.0.6",
+  "version": "2.0.6",
   "flat": true,
   "author": {
     "name": "Samuel Gratzl",

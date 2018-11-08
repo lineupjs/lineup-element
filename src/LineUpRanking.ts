@@ -1,4 +1,5 @@
-const {customElement, property} = Polymer.decorators;
+import {PolymerElement} from '@polymer/polymer/polymer-element';
+import {customElement, property} from '@polymer/decorators';
 import {
   builderAdapter,
   IBuilderAdapterImposeColumnProps,
@@ -17,13 +18,13 @@ import {
   Ranking
 } from 'lineupjs';
 
-export abstract class ALineUpColumnBuilder extends Polymer.Element {
+export abstract class ALineUpColumnBuilder extends PolymerElement {
   abstract build(): (string | IImposeColumnBuilder | INestedBuilder | IWeightedSumBuilder | IReduceBuilder | IScriptedBuilder);
 }
 
 
 @customElement('lineup-ranking')
-export default class LineUpRanking extends Polymer.Element implements IBuilderAdapterRankingProps {
+export default class LineUpRanking extends PolymerElement implements IBuilderAdapterRankingProps {
   merge() {
     const inline = Array.from(this.children).filter((d) => d instanceof ALineUpColumnBuilder).map((d) => (<ALineUpColumnBuilder>d).build());
 
