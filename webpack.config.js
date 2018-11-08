@@ -3,7 +3,7 @@ const pkg = require('./package.json');
 const webpack = require('webpack');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const EsmWebpackPlugin = require('@purtuga/esm-webpack-plugin');
+// const EsmWebpackPlugin = require('@purtuga/esm-webpack-plugin');
 
 const now = new Date();
 const prefix = (n) => n < 10 ? ('0' + n) : n.toString();
@@ -30,8 +30,8 @@ module.exports = (env, options) => {
       filename: `[name].js`,
       chunkFilename: '[chunkhash].js',
       publicPath: '', //no public path = relative
-      library: 'LineUpESM',
-      libraryTarget: 'var',
+      library: 'LineUpJS',
+      libraryTarget: 'umd',
       umdNamedDefine: false //anonymous require module
     },
     resolve: {
@@ -58,7 +58,7 @@ module.exports = (env, options) => {
         from: './node_modules/lineupjs/build/*.+(svg|eot|ttf)',
         flatten: true
       }]),
-      new EsmWebpackPlugin()
+      // new EsmWebpackPlugin()
     ],
     externals: {
       '@polymer/polymer': {
