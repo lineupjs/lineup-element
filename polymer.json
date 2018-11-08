@@ -1,4 +1,8 @@
 {
   "npm": true,
-  "moduleResolution": "node"
+  "moduleResolution": "node",
+  "lint": {
+    "rules": ["polymer-3"],
+    "ignoreWarnings": ["cant-resolve-module-specifier"]
+  }
 }

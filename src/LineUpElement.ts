@@ -16,7 +16,7 @@ import {
   ITaggleOptions,
   Ranking,
 } from 'lineupjs';
-import * as css from 'raw-loader!lineupjs/build/LineUpJS.css';
+import * as css from '!raw-loader!lineupjs/build/LineUpJS.css';
 import {LineUpColumnDesc} from './column';
 import LineUpRanking from './LineUpRanking';
 

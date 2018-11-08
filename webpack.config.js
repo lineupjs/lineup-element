@@ -1,10 +1,8 @@
 const resolve = require('path').resolve;
 const pkg = require('./package.json');
 const webpack = require('webpack');
-const fs = require('fs');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const now = new Date();
 const prefix = (n) => n < 10 ? ('0' + n) : n.toString();
@@ -20,31 +18,8 @@ const banner = '/*! ' + (pkg.title || pkg.name) + ' - v' + pkg.version + ' - ' +
 /**
  * generate a webpack configuration
  */
-module.exports = (env) => {
-
-  const tsLoader = [{
-      loader: 'cache-loader'
-    },
-    {
-      loader: 'thread-loader',
-      options: {
-        // there should be 1 cpu for the fork-ts-checker-webpack-plugin
-        workers: require('os').cpus().length - 1,
-      },
-    },
-    {
-      loader: 'ts-loader',
-      options: {
-        configFile: env === 'dev' ? 'tsconfig_dev.json' : 'tsconfig.json',
-        happyPackMode: true // IMPORTANT! use happyPackMode mode to speed-up  compilation and reduce errors reported to webpack
-      }
-    }
-  ];
-
-  if (process.env.CI) {
-    tsLoader.splice(0, 2); // just the loader no optimization
-  }
-
+module.exports = (env, options) => {
+  const dev = options.mode.startsWith('d');
   return {
     entry: {
       'lineup-element': './src/index.ts'
@@ -59,8 +34,7 @@ module.exports = (env) => {
       umdNamedDefine: false //anonymous require module
     },
     resolve: {
-      // Add `.ts` and `.tsx` as a resolvable extension.
-      extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js'],
+      extensions: ['.ts', '.tsx', '.js'],
       symlinks: false
     },
     plugins: [
@@ -70,12 +44,10 @@ module.exports = (env) => {
       }),
       //define magic constants that are replaced
       new webpack.DefinePlugin({
+        __DEBUG__ : dev,
         __VERSION__: JSON.stringify(pkg.version),
         __LICENSE__: JSON.stringify(pkg.license),
         __BUILD_ID__: JSON.stringify(buildId)
-      }),
-      new ExtractTextPlugin({
-        filename: `[name].css`
       }),
       new ForkTsCheckerWebpackPlugin({
         checkSyntacticErrors: true
@@ -88,16 +60,28 @@ module.exports = (env) => {
     ],
     externals: {},
     module: {
-      rules: [{
-          test: /\.s?css$/,
-          use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: ['css-loader', 'sass-loader']
-          })
-        },
+      rules: [
         {
           test: /\.tsx?$/,
-          use: tsLoader
+          exclude: /node_modules/,
+          use: [{
+              loader: 'cache-loader'
+            },
+            {
+              loader: 'thread-loader',
+              options: {
+                // there should be 1 cpu for the fork-ts-checker-webpack-plugin
+                workers: require('os').cpus().length - 1,
+              },
+            },
+            {
+              loader: 'ts-loader',
+              options: {
+                configFile: dev ? 'tsconfig.dev.json' : 'tsconfig.json',
+                happyPackMode: true // IMPORTANT! use happyPackMode mode to speed-up  compilation and reduce errors reported to webpack
+              }
+            }
+          ].slice(process.env.CI || !dev ? 2 : 0) // no optimizations for CIs and in production mode
         },
         {
           test: /\.(png|jpg)$/,

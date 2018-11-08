@@ -13,3 +13,5 @@ bower_components
 /.cache-loader
 /lineup-element.js
 .rpt2_cache
+/build
+/types
