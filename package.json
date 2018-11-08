@@ -18,12 +18,13 @@
     "url": "https://github.com/datavisyn/lineup-element.git"
   },
   "files": [
-    "lineup-element.html",
+    "lineup-element.js",
     "bower.json",
     "polymer.json",
     "src/**/*.html",
     "src/**/*.css"
   ],
+  "main": "./lineup-element.js",
   "scripts": {
     "clean": "rimraf build dist",
     "compile": "tsc",
@@ -45,7 +46,7 @@
     "release:pre": "npm version prerelease && npm publish --tag=next && git push --follow-tags"
   },
   "devDependencies": {
-    "bower": "^1.8.4",
+    "@polymer/iron-demo-helpers": "*",
     "cache-loader": "^1.2.5",
     "copy-webpack-plugin": "^4.6.0",
     "fork-ts-checker-webpack-plugin": "^0.4.15",
@@ -63,5 +64,9 @@
     "webpack": "^4.25.1",
     "webpack-cli": "^3.1.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@polymer/polymer": "^3.0.0",
+    "@webcomponents/webcomponentsjs": "^1",
+    "@polymer/decorators": "*"
+  }
 }
