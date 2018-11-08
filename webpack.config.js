@@ -3,6 +3,7 @@ const pkg = require('./package.json');
 const webpack = require('webpack');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const EsmWebpackPlugin = require('@purtuga/esm-webpack-plugin');
 
 const now = new Date();
 const prefix = (n) => n < 10 ? ('0' + n) : n.toString();
@@ -29,8 +30,8 @@ module.exports = (env, options) => {
       filename: `[name].js`,
       chunkFilename: '[chunkhash].js',
       publicPath: '', //no public path = relative
-      library: 'LineUpJS',
-      libraryTarget: 'umd',
+      library: 'LineUpESM',
+      libraryTarget: 'var',
       umdNamedDefine: false //anonymous require module
     },
     resolve: {
@@ -56,11 +57,36 @@ module.exports = (env, options) => {
       new CopyWebpackPlugin([{
         from: './node_modules/lineupjs/build/*.+(svg|eot|ttf)',
         flatten: true
-      }])
+      }]),
+      new EsmWebpackPlugin()
     ],
-    externals: {},
+    externals: {
+      '@polymer/polymer': {
+        commonjs: '@polymer/polymer',
+        commonjs2: '@polymer/polymer',
+        amd: '@polymer/polymer',
+        root: 'Polymer'
+      },
+      '@polymer/decorators': {
+        commonjs: '@polymer/decorators',
+        commonjs2: '@polymer/decorators',
+        amd: '@polymer/decorators',
+        root: 'Polymer.decorators'
+      },
+      'lineupjs': {
+        commonjs: 'lineupjs',
+        commonjs2: 'lineupjs',
+        amd: 'lineupjs',
+        root: 'LineUpJS'
+      }
+
+    },
     module: {
       rules: [
+        {
+          test: /\.css$/,
+          use: 'raw-loader'
+        },
         {
           test: /\.tsx?$/,
           exclude: /node_modules/,

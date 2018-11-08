@@ -1,4 +1,4 @@
-import {PolymerElement} from '@polymer/polymer/polymer-element';
+import {PolymerElement} from '@polymer/polymer';
 import {customElement, property, query, observe} from '@polymer/decorators';
 import {
   builderAdapter,
@@ -16,21 +16,22 @@ import {
   ITaggleOptions,
   Ranking,
 } from 'lineupjs';
-import * as css from '!raw-loader!lineupjs/build/LineUpJS.css';
+import './lineup-style';
+// import css from 'lineupjs/build/LineUpJS.css';
 import {LineUpColumnDesc} from './column';
 import LineUpRanking from './LineUpRanking';
 
-{
-  // see https://github.com/Polymer/polymer/issues/2386
-  // font-face are not supported in custom styles need to import globally
-  const style = String(css.default);
-  const fontFace = style.match(/@font-face[^}]+}/);
-  if (fontFace) {
-    const s = document.createElement('style');
-    s.innerText = fontFace[0];
-    document.head!.appendChild(s);
-  }
-}
+// {
+//   // see https://github.com/Polymer/polymer/issues/2386
+//   // font-face are not supported in custom styles need to import globally
+//   const style = String(css.default);
+//   const fontFace = style.match(/@font-face[^}]+}/);
+//   if (fontFace) {
+//     const s = document.createElement('style');
+//     s.innerText = fontFace[0];
+//     document.head!.appendChild(s);
+//   }
+// }
 
 function debounce(callback: () => void, timeToDelay = 100) {
   let tm = -1;
@@ -161,10 +162,7 @@ export class LineUpElement extends PolymerElement implements IBuilderAdapterProp
   static get template() {
     const template = document.createElement('template');
     template.innerHTML = `
-    <style>
-
-      ${css.default}
-
+    <style include="lineup-style-element">
 
       :host {
         position: relative;

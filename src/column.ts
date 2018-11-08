@@ -1,4 +1,4 @@
-import {PolymerElement} from '@polymer/polymer/polymer-element';
+import {PolymerElement} from '@polymer/polymer';
 import {customElement, property} from '@polymer/decorators';
 import {
   builderAdapter,

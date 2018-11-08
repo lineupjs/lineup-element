@@ -27,7 +27,8 @@
   "main": "./build/lineup-element.js",
   "types": "./build/types",
   "scripts": {
-    "clean": "rimraf build dist",
+    "clean": "rimraf build dist && npm run clean:compile",
+    "clean:compile": "rimraf src/**/*.map src/**/*.js src/**/*.d.ts",
     "compile": "tsc",
     "lint": "tslint --project tsconfig.json -c tslint.json && polymer lint --rules=polymer-3",
     "prebuild": "npm run clean && (node -e \"process.exit(process.env.PHOVEA_SKIP_TESTS === undefined?1:0)\" || npm run test)",
@@ -47,11 +48,11 @@
   },
   "devDependencies": {
     "@polymer/iron-demo-helpers": "^3.0.2",
+    "@purtuga/esm-webpack-plugin": "^1.0.0",
     "cache-loader": "^1.2.5",
     "copy-webpack-plugin": "^4.6.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "fork-ts-checker-webpack-plugin": "^0.4.15",
-    "lineupjs": "~3.1.7",
     "mkdirp": "^0.5.1",
     "polymer-cli": "^1.8.1",
     "raw-loader": "^1.0.0-beta.0",
@@ -66,6 +67,7 @@
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {
+    "lineupjs": "~3.1.7",
     "@polymer/polymer": "^3.1.0",
     "@webcomponents/webcomponentsjs": "^2.1.3",
     "@polymer/decorators": "^3.0.0"

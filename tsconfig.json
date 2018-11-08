@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "esnext",
-    "target": "es5",
+    "target": "esnext",
     "importHelpers": true,
     "sourceMap": true,
     "moduleResolution": "node",
