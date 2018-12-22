@@ -1,7 +1,7 @@
 {
   "name": "lineup-element",
   "description": "LineUp is an interactive technique designed to create, visualize and explore rankings of items based on a set of heterogeneous attributes.",
-  "homepage": "https://github.com/datavisyn/lineup-element",
+  "homepage": "https://github.com/lineupjs/lineup-element",
   "version": "2.0.6",
   "flat": true,
   "author": {
@@ -11,11 +11,11 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/datavisyn/lineup-element/issues"
+    "url": "https://github.com/lineupjs/lineup-element/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/datavisyn/lineup-element.git"
+    "url": "https://github.com/lineupjs/lineup-element.git"
   },
   "files": [
     "lineup-element.js",

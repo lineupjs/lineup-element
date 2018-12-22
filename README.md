@@ -4,7 +4,7 @@ LineUp.js Polymer Wrapper (LineUp-Element)
 [![License: MIT][mit-image]][mit-url] [![NPM version][npm-image]][npm-url]  [![CircleCI][ci-image]][ci-url] 
 
 LineUp is an interactive technique designed to create, visualize and explore rankings of items based on a set of heterogeneous attributes. 
-This is a Polymer 3.0](https://www.polymer-project.org/) web component wrapper around the JavaScript library [LineUp.js](https://github.com/datavisyn/lineupjs). Details about the LineUp visualization technique can be found at [http://lineup.caleydo.org](http://lineup.caleydo.org). 
+This is a Polymer 3.0](https://www.polymer-project.org/) web component wrapper around the JavaScript library [LineUp.js](https://github.com/lineupjs/lineupjs). Details about the LineUp visualization technique can be found at [http://lineup.caleydo.org](http://lineup.caleydo.org). 
 
 Usage
 -----
@@ -12,7 +12,7 @@ Usage
 **Installation**
 
 ```bash
-bower install https://github.com/datavisyn/lineup-element
+bower install https://github.com/lineupjs/lineup-element
 ```
 
 ```html
@@ -82,7 +82,7 @@ Development Environment
 **Installation**
 
 ```bash
-git clone https://github.com/datavisyn/lineup-element.git
+git clone https://github.com/lineupjs/lineup-element.git
 cd lineup-element
 npm install
 ```
@@ -117,8 +117,8 @@ Authors
 [npm-url]: https://npmjs.org/package/lineup-element
 [mit-image]: https://img.shields.io/badge/License-MIT-yellow.svg
 [mit-url]: https://opensource.org/licenses/MIT
-[ci-image]: https://circleci.com/gh/datavisyn/lineup-element.svg?style=shield
-[ci-url]: https://circleci.com/gh/datavisyn/lineup-element
+[ci-image]: https://circleci.com/gh/lineupjs/lineup-element.svg?style=shield
+[ci-url]: https://circleci.com/gh/lineupjs/lineup-element
 
 
  
